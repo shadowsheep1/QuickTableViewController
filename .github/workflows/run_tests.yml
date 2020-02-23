@@ -1,0 +1,15 @@
+name: Build and test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Build and test
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-ruby@master
+      - run: bundle install
+      - run: bundle exec pod install
+      - name: Run tests
+        run: bundle exec rake "test:ios[QuickTableViewController-iOS]"
